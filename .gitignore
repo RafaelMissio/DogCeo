@@ -41,3 +41,11 @@ bin/
 
 ### Mac OS ###
 .DS_Store
+
+### Allure ###
+.allure/
+allure-results/
+allure-report/
+
+### GitHub Pages ###
+gh-pages/

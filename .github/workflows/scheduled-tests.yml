@@ -1,0 +1,62 @@
+name: Testes Agendados
+
+on:
+  schedule:
+    # Executa todos os dias às 9h UTC (6h BRT)
+    - cron: '0 9 * * *'
+  workflow_dispatch:
+
+jobs:
+  scheduled-tests:
+    name: Testes Diários Automatizados
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout do código
+        uses: actions/checkout@v4
+
+      - name: Setup Java JDK
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          cache: 'gradle'
+
+      - name: Conceder permissões de execução ao Gradle Wrapper
+        run: chmod +x ./gradlew
+
+      - name: Executar testes
+        run: ./gradlew clean test
+        continue-on-error: true
+
+      - name: Gerar relatório Allure
+        uses: simple-elf/allure-report-action@master
+        if: always()
+        with:
+          allure_results: build/allure-results
+          allure_history: allure-history
+          keep_reports: 20
+
+      - name: Deploy do relatório no GitHub Pages
+        if: always()
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_branch: gh-pages
+          publish_dir: allure-history
+
+      - name: Upload dos resultados
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: scheduled-test-results-${{ github.run_number }}
+          path: |
+            build/test-results/
+            build/allure-results/
+          retention-days: 7
+
+      - name: Notificar falha
+        if: failure()
+        run: |
+          echo "::error::Testes agendados falhararam! Verifique os logs."
+
