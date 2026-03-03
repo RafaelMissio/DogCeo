@@ -1,7 +1,5 @@
 # 🐕 Dog CEO API - Testes Automatizados
 
-[![API Tests CI](https://github.com/USUARIO/dogCeo/actions/workflows/test.yml/badge.svg)](https://github.com/USUARIO/dogCeo/actions/workflows/test.yml)
-[![Testes Agendados](https://github.com/USUARIO/dogCeo/actions/workflows/scheduled-tests.yml/badge.svg)](https://github.com/USUARIO/dogCeo/actions/workflows/scheduled-tests.yml)
 
 Projeto de automação de testes para a API Dog CEO (https://dog.ceo/dog-api/) utilizando Java, JUnit 5, RestAssured e Allure Reports.
 
@@ -39,7 +37,7 @@ Os testes são executados automaticamente via GitHub Actions em três situaçõe
 
 Os relatórios do Allure são gerados automaticamente e publicados no GitHub Pages:
 
-🔗 **[Ver Relatório Allure](https://USUARIO.github.io/dogCeo/)**
+🔗 **[Ver Relatório Allure](https://rafaelmissio.github.io/DogCeo/4/index.html)**
 
 ### Artefatos
 
