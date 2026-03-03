@@ -6,6 +6,9 @@ on:
     - cron: '0 9 * * *'
   workflow_dispatch:
 
+permissions:
+  contents: write
+
 jobs:
   scheduled-tests:
     name: Testes Diários Automatizados
@@ -59,4 +62,3 @@ jobs:
         if: failure()
         run: |
           echo "::error::Testes agendados falhararam! Verifique os logs."
-
